@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .home_link {
+    @apply text-black text-sm font-semibold sm:text-[16px] hover:text-white hover:animate-bounce
+        transition-all duration-500 ease-out;
+  }
+  .inputStyle {
+    @apply border p-2 rounded-lg outline-none;
+  }
+}
