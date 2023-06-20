@@ -44,7 +44,7 @@ function FarmerRequestCard({
         <Card
           decoration="top"
           decorationColor="red"
-          className="!bg-white !max-w-md"
+          className="!bg-white !max-w-sm"
         >
           <Badge className="!bg-green-400 !text-white">Reference: {id}</Badge>
           <Text>Farmer ID: {farmerID}</Text>
@@ -73,7 +73,7 @@ function FarmerRequestCard({
               </Badge>
             ))}
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-around">
             <button
               onClick={approveFarmer}
               className="bg-green-400 rounded-lg text-sm font-bold p-3 hover:scale-110 transition-all duration-200 ease-out text-white mt-3"

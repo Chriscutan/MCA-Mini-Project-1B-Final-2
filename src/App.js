@@ -10,7 +10,6 @@ import BookVets from "./pages/BookVets";
 import SellProducts from "./pages/SellProducts";
 import BookEnggs from "./pages/BookEnggs";
 import BuyProducts from "./pages/BuyProducts";
-import News from "./pages/News";
 import Weather from "./pages/Weather";
 import AdminHome from "./pages/AdminHome";
 import Employees from "./pages/Employees";
@@ -21,6 +20,7 @@ import Checkout from "./pages/Checkout";
 import FarmerRequests from "./pages/FarmerRequests";
 import AdminOrders from "./pages/AdminOrders";
 import MyOrder from "./pages/MyOrder";
+import AdminEditEmployee from "./pages/AdminEditEmployee";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -42,13 +42,16 @@ function App() {
             <Route path="/cartProducts" element={<CartProducts />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/myorders" element={<MyOrder />} />
-            <Route path="/news" element={<News />} />
             <Route path="/weather" element={<Weather />} />
             <Route path="/admin/employees" element={<Employees />} />
             <Route path="/makeAppointment" element={<MakeAppointment />} />
             <Route path="/admin/appointments" element={<AdminAppointments />} />
             <Route path="/admin/farmers" element={<FarmerRequests />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route
+              path="/admin/employee/edit"
+              element={<AdminEditEmployee />}
+            />
           </Routes>
         )}
       </BrowserRouter>

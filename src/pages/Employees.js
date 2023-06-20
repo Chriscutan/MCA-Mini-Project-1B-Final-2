@@ -9,7 +9,6 @@ import { collection, doc, query, setDoc } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import EmployeeCard from "../components/EmployeeCard";
 import { BounceLoader } from "react-spinners";
-import EmployeeEditCard from "../components/EmployeeEditCard";
 
 function Employees() {
   const [showEmpModal, setShowEmpModal] = useState(false);
@@ -77,7 +76,7 @@ function Employees() {
 
   const [employees, loading] = useCollection(collection(db, "employees"));
   return (
-    <div className="w-screen bg-gray-100">
+    <div className="w-screen">
       <AdminHeader />
 
       {loading ? (
@@ -206,21 +205,6 @@ function Employees() {
           </div>
         </div>
       )}
-
-      {/* Edit Employee Modal */}
-      {/* <div id="editModal" className="hidden">
-        <EmployeeEditCard
-          empID={doc.id}
-          empName={doc.data().name}
-          empEmail={doc.data().email}
-          empMobile={doc.data().mobile}
-          empDesignation={doc.data().designation}
-          empExperience={doc.data().experience}
-          empStatus={doc.data().status}
-          empProfilePic={doc.data().profilePic}
-          empSpeciality={doc.data().speciality}
-        />
-      </div> */}
     </div>
   );
 }

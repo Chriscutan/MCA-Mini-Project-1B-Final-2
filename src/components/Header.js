@@ -15,14 +15,16 @@ function Header() {
         <div className="space-x-4">
           <div
             onClick={() => setShowMenu(!showMenu)}
-            className="inline-flex cursor-pointer sm:hidden">
+            className="inline-flex cursor-pointer sm:hidden"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -49,9 +51,7 @@ function Header() {
             <Link to="/buyproducts" className="home_link">
               Buy Products
             </Link>
-            <Link to="/news" className="home_link">
-              News
-            </Link>
+
             <Link to="/weather" className="home_link">
               Weather
             </Link>
@@ -75,7 +75,8 @@ function Header() {
             />
             <p
               className="text-sm font-semibold cursor-pointer"
-              onClick={() => auth.signOut()}>
+              onClick={() => auth.signOut()}
+            >
               {user ? `Welcome back, ${user.displayName}` : "Login"}
             </p>
           </div>
@@ -91,7 +92,8 @@ function Header() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6">
+              className="w-6 h-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

@@ -3,20 +3,15 @@ import { CameraIcon } from "@heroicons/react/24/solid";
 import { useRef, useState } from "react";
 import { doc, query, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useSelector } from "react-redux";
+import { selectEmp } from "../features/AdminEmp";
+import { useNavigate } from "react-router-dom";
 
-function EmployeeEditCard({
-  empName,
-  empEmail,
-  empMobile,
-  empDesignation,
-  empExperience,
-  empStatus,
-  empID,
-  empSpeciality,
-  empProfilePic,
-}) {
+function AdminEditEmployee() {
   const [selectedFile, setSelectedFile] = useState(null);
   const filePickerRef = useRef(null);
+  const selectedEmp = useSelector(selectEmp);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,26 +34,28 @@ function EmployeeEditCard({
   };
 
   const updateEmpProfile = () => {
-    const q = query(doc(db, `employees/${empID}`));
-
+    const q = query(doc(db, `employees/${selectedEmp[0]?.id}`));
     updateDoc(q, {
-      name: name ? name : empName,
-      email: email ? email : empEmail,
-      mobile: mobile ? mobile : empMobile,
-      designation: designation ? designation : empDesignation,
-      experience: experience ? experience : empExperience,
-      speciality: speciality ? speciality : empSpeciality,
-      status: status ? true : false,
-      profilePic: selectedFile ? selectedFile : empProfilePic,
-    }).then(() => {
-      document.getElementById("editCard").style.display = "none";
-    });
+      name: name !== "" ? name : selectedEmp[0]?.name,
+      email: email !== "" ? email : selectedEmp[0]?.email,
+      mobile: mobile !== "" ? mobile : selectedEmp[0]?.mobile,
+      designation:
+        designation !== "" ? designation : selectedEmp[0]?.designation,
+      experience: experience !== "" ? experience : selectedEmp[0]?.experience,
+      speciality: speciality !== "" ? speciality : selectedEmp[0]?.speciality,
+      status: status === "Available" ? true : false,
+      profilePic: selectedFile ? selectedFile : selectedEmp[0]?.profilePic,
+    })
+      .then(() => {
+        navigate("/admin/employee");
+      })
+      .catch((err) => alert(err.message));
   };
 
   return (
     <div
       id="editCard"
-      className="max-w-lg flex flex-col items-center space-y-2 border border-gray-300 rounded-lg bg-gray-100 p-4"
+      className="max-w-sm mx-auto mt-10 flex flex-col items-center space-y-2 border border-gray-300 rounded-lg bg-gray-100 p-4"
     >
       <h1 className="text-3xl font-bold">Edit Employee</h1>
       {selectedFile ? (
@@ -145,4 +142,4 @@ function EmployeeEditCard({
   );
 }
 
-export default EmployeeEditCard;
+export default AdminEditEmployee;

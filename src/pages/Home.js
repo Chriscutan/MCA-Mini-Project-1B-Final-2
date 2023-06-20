@@ -48,7 +48,7 @@ function Home() {
           onClick={() => setShowChatBot(!showChatBot)}
           className="fixed bottom-5 right-10"
         >
-          <ChatBubbleLeftEllipsisIcon className="h-14 w-14 text-green-500" />
+          <ChatBubbleLeftEllipsisIcon className="h-14 w-14 text-green-500 hover:scale-110 transition-all duration-200 ease-out" />
         </button>
 
         {showChatBot && (

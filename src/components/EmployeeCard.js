@@ -1,7 +1,9 @@
 import { BadgeDelta, Card, Metric, Text } from "@tremor/react";
-import EmployeeEditCard from "./EmployeeEditCard";
 import { deleteDoc, doc, query } from "firebase/firestore";
 import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addEmp } from "../features/AdminEmp";
 
 function EmployeeCard({
   id,
@@ -23,6 +25,9 @@ function EmployeeCard({
       })
       .catch((err) => alert(err.message));
   };
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="">
@@ -54,7 +59,21 @@ function EmployeeCard({
         <div className="flex items-center justify-between">
           <button
             onClick={() => {
-              document.getElementById("editModal").style.display = "block";
+              dispatch(
+                addEmp({
+                  id: id,
+                  name: name,
+                  email: email,
+                  mobile: mobile,
+                  designation: designation,
+                  experience: experience,
+                  status: status,
+                  profilePic: profilePic,
+                  speciality: speciality,
+                })
+              );
+
+              navigate("/admin/employee/edit");
             }}
             className="bg-indigo-400 text-sm font-bold px-4 py-2 mt-2 rounded-lg text-white hover:scale-110 transition-all duration-200 ease-out"
           >
@@ -68,21 +87,6 @@ function EmployeeCard({
           </button>
         </div>
       </Card>
-
-      {/* Show Edit Modal */}
-      <div id="editModal" className="hidden">
-        <EmployeeEditCard
-          empID={id}
-          empName={name}
-          empEmail={email}
-          empMobile={mobile}
-          empDesignation={designation}
-          empExperience={experience}
-          empStatus={status}
-          empProfilePic={profilePic}
-          empSpeciality={speciality}
-        />
-      </div>
 
       {/* Show Delete Modal */}
       <div id="deleteModal" className="hidden fixed z-50 top-28 mx-auto">

@@ -7,7 +7,14 @@ import { useState } from "react";
 import { useRef } from "react";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { doc, getDoc, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { auth, db, storage } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -56,7 +63,8 @@ function SellProducts() {
     };
   };
 
-  const AddProduct = async () => {
+  const AddProduct = async (e) => {
+    e.preventDefault();
     const docRef = query(doc(db, `farmers/${user?.email}`));
 
     const docSnap = await getDoc(docRef);
@@ -71,11 +79,12 @@ function SellProducts() {
         .then(() => {
           getDownloadURL(prodImageRef)
             .then((url) => {
-              const q = query(doc(db, `products/${farmerName}_${productName}`));
-              setDoc(q, {
+              const q = query(collection(db, "products"));
+              addDoc(q, {
                 farmerName: farmerName,
                 farmerEmail: farmerEmail,
                 productName: productName,
+                productCategory: productCategory,
                 harvestDate: harvestDate,
                 expiryDate: expiryDate,
                 harvestLocation: harvestLocation,
@@ -83,7 +92,9 @@ function SellProducts() {
                 price: price,
                 stock: quantity,
                 prodImage: url,
-              }).catch((err) => alert(err.message));
+              })
+                .then(() => alert("Product Added!!!!"))
+                .catch((err) => alert(err.message));
             })
             .catch((err) => alert(err.message));
         })
@@ -95,6 +106,7 @@ function SellProducts() {
     setFarmerName("");
     setFarmerEmail("");
     setProductName("");
+    setProductCategory("");
     setHarvestDate("");
     setExpiryDate("");
     setHarvestLocation("");
@@ -113,7 +125,7 @@ function SellProducts() {
       />
       <form
         className="flex flex-col space-y-3 w-[400px]"
-        onSubmit={handleSubmit(onSubmit)}
+        // onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-2xl font-bold mt-3 mx-auto">Sell your Products</h1>
 
